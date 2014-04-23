@@ -2738,18 +2738,19 @@ macfont_open (struct frame * f, Lisp_Object entity, int pixel_size)
          Courier, Helvetica, and Times.  */
       family_name = CTFontCopyFamilyName (macfont);
       if (family_name)
-        {
-          if (CFEqual (family_name, CFSTR ("Courier"))
-              || CFEqual (family_name, CFSTR ("Helvetica"))
-              || CFEqual (family_name, CFSTR ("Times")))
-            ascent += (ascent + descent) * .15f;
-          else if (CFStringHasPrefix (family_name, CFSTR ("Hiragino")))
-            {
-              leading *= .25f;
+	{
+	  if (CFEqual (family_name, CFSTR ("Courier"))
+	      || CFEqual (family_name, CFSTR ("Helvetica"))
+	      || CFEqual (family_name, CFSTR ("Times"))
+	      || CFEqual (family_name, CFSTR ("Menlo")))
+	    ascent += (ascent + descent) * .15f;
+	  else if (CFStringHasPrefix (family_name, CFSTR ("Hiragino")))
+	    {
+	      leading *= .25f;
               ascent += leading;
-            }
-          CFRelease (family_name);
-        }
+	    }
+	  CFRelease (family_name);
+	}
     }
   font->ascent = ascent + 0.5f;
   val = assq_no_quit (QCminspace, AREF (entity, FONT_EXTRA_INDEX));
